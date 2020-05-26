@@ -52,14 +52,6 @@ searchBar.addEventListener("keydown", (event) => {
   }
 });
 
-function locationChange() {
-  let beginning = "http://api.openweathermap.org/data/2.5/weather?q=";
-  let city = "";
-  let unit = "&units=metric";
-  let apikey = "&appid=4b52df0c72d732b4a364560667ecbafb";
-
-  let locationChanger = document.getElementById("location");
-
   locationChanger.addEventListener("keyup", (event) => {
     if (event.keyCode === 13) {
       event.preventDefault();
@@ -68,16 +60,17 @@ function locationChange() {
 
       fetch(url)
         .then((response) => response.json())
-        .then((data) => console.log(data.weather[0].main));
-
-      // $.getJSON(url, function (data) {
-
-      //   console.log(city);
-      //   var temp = " " + data.main.temp + " ℃";
-      //   var realFeel = " " + data.main.feels_like + " ℃";
-      //   $(".temp").append(temp);
-      //   $(".realFeel").append(realFeel);
-      // });
+        .then((data) => {
+          console.log(data);
+          $(".temp").empty();
+          $(".realFeel").empty();
+          var temp = " " + data.main.temp + " ℃";
+          var realFeel = " " + data.main.feels_like + " ℃";
+          $(".temp").append(temp);
+          $(".realFeel").append(realFeel);
+        });
     }
   });
 }
+
+locationChange();
